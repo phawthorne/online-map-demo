@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+            <title>Nearest Frontier Point</title>
+
+            <!-- Leaflet -->
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+            integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+            crossorigin=""/>
+            <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
+
+            <link rel="stylesheet" href="../src/leaflet.groupedlayercontrol.css" />
+            <script src="src/leaflet.groupedlayercontrol.js"></script>
+
+          
+            <style>
+                body { margin:0; padding:0; }
+                body, table, tr, td, th, div, h1, h2, input { font-family: "Calibri", "Trebuchet MS", "Ubuntu", Serif; font-size: 11pt; }
+                #map { position:absolute; top:0; bottom:0; width:100%; } /* full size */
+                .ctl {
+                    padding: 2px 10px 2px 10px;
+                    background: white;
+                    background: rgba(255,255,255,0.9);
+                    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+                    border-radius: 5px;
+                    text-align: right;
+                }
+                .title {
+                    font-size: 18pt;
+                    font-weight: bold;
+                }
+                .src {
+                    font-size: 10pt;
+                }
+
+            </style>
+
+        </head>
+        <body>
+
+        <div id="map"></div>
+
+        <script>
+        /* **** Leaflet **** */
+
+        // Base layer
+        //  .. CartoDB Positron
+        var cartodb = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>', minZoom: 4, maxZoom: 9});
+
+        // Overlay layers (TMS)
+
+        var sustCur = L.tileLayer('./Colombia/sustainable_current/{z}/{x}/{y}.png', {tms: true, opacity: 0.7, attribution: "", minZoom: 5, maxZoom: 9});
+        var nearest = L.tileLayer('./Colombia/nearest/{z}/{x}/{y}.png', {tms: true, opacity: 0.7, attribution: "", minZoom: 5, maxZoom: 9});
+        var paretoAg = L.tileLayer('./Colombia/pareto_max_ag_value/{z}/{x}/{y}.png', {tms: true, opacity: 0.7, attribution: "", minZoom: 5, maxZoom: 9});
+        var paretoBio = L.tileLayer('./Colombia/pareto_max_biodiversity/{z}/{x}/{y}.png', {tms: true, opacity: 0.7, attribution: "", minZoom: 5, maxZoom: 9});
+
+        // Map
+        var map = L.map('map', {
+            center: [4.671328914970367, -74.66408910910411],
+            zoom: 6,
+            minZoom: 5,
+            maxZoom: 9,
+            layers: [cartodb]
+        });
+
+        var basemaps = {"Background Map": cartodb}
+        // var basemaps = {"OpenStreetMap": osm, "CartoDB Positron": cartodb}
+        var groupedOverlays = {
+            "Frontier Solutions": {
+                "Sustainble Current": sustCur, 
+                "Nearest": nearest, 
+                "Pareto Max Ag Value": paretoAg,
+                "Pareto Max Biodiversity": paretoBio
+            }
+        };
+        var options = {
+            exclusiveGroups:["Frontier Solutions"]
+        }
+
+        // Title
+        var title = L.control();
+        title.onAdd = function(map) {
+            this._div = L.DomUtil.create('div', 'ctl title');
+            this.update();
+            return this._div;
+        };
+        title.update = function(props) {
+            this._div.innerHTML = "Scenarios";
+        };
+        title.addTo(map);
+
+        // Add base layers
+        var layerControl = L.control.groupedLayers(basemaps, groupedOverlays, options);
+        map.addControl(layerControl);
+
+        // Fit to overlay bounds (SW and NE points with (lat, lon))
+        // map.fitBounds([[-4.236909072799711, -66.86689793330432], [13.579566902740444, -82.4612802849039]]);
+
+        </script>
+
+        </body>
+        </html>
+
+        
