@@ -13,7 +13,7 @@
             integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
             crossorigin=""></script>
 
-            <link rel="stylesheet" href="../src/leaflet.groupedlayercontrol.css" />
+            <link rel="stylesheet" href="src/leaflet.groupedlayercontrol.css" />
             <script src="src/leaflet.groupedlayercontrol.js"></script>
 
           
@@ -53,10 +53,10 @@
 
         // Overlay layers (TMS)
 
-        var sustCur = L.tileLayer('./Colombia/sustainable_current/{z}/{x}/{y}.png', {tms: true, opacity: 0.7, attribution: "", minZoom: 5, maxZoom: 9});
-        var nearest = L.tileLayer('./Colombia/nearest/{z}/{x}/{y}.png', {tms: true, opacity: 0.7, attribution: "", minZoom: 5, maxZoom: 9});
-        var paretoAg = L.tileLayer('./Colombia/pareto_max_ag_value/{z}/{x}/{y}.png', {tms: true, opacity: 0.7, attribution: "", minZoom: 5, maxZoom: 9});
-        var paretoBio = L.tileLayer('./Colombia/pareto_max_biodiversity/{z}/{x}/{y}.png', {tms: true, opacity: 0.7, attribution: "", minZoom: 5, maxZoom: 9});
+        var sustCur = L.tileLayer('Colombia/sustainable_current/{z}/{x}/{y}.png', {tms: true, opacity: 0.7, attribution: "", minZoom: 5, maxZoom: 9});
+        var nearest = L.tileLayer('Colombia/nearest/{z}/{x}/{y}.png', {tms: true, opacity: 0.7, attribution: "", minZoom: 5, maxZoom: 9});
+        var paretoAg = L.tileLayer('Colombia/pareto_max_ag_value/{z}/{x}/{y}.png', {tms: true, opacity: 0.7, attribution: "", minZoom: 5, maxZoom: 9});
+        var paretoBio = L.tileLayer('Colombia/pareto_max_biodiversity/{z}/{x}/{y}.png', {tms: true, opacity: 0.7, attribution: "", minZoom: 5, maxZoom: 9});
 
         // Map
         var map = L.map('map', {
