@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-    <title>Nearest Frontier Point</title>
+    <title>NCI results demo</title>
     <link rel="stylesheet" href="src/main.css">
 
     <!-- Leaflet -->
@@ -34,6 +34,35 @@
       <div id="nci-frontier-plot">
         <img src="Colombia/econ_vs_non_econ.png" id="frontier-img"/>
       </div>
+      <div id="nci-summary-table">
+        <table>
+          <tr>
+            <th>Objective</th>
+            <th>Percent<br>of Max</th>
+            <th>Percent<br>of Pareto</th>
+          </tr>
+          <tr>
+            <td>Crop value</td>
+            <td class='table-content' id='crop-value-max'>0</td>
+            <td class='table-content' id='crop-value-pareto'>0</td>
+          </tr>
+          <tr>
+            <td>Biodiversity</td>
+            <td class='table-content' id='biodiversity-max'>0</td>
+            <td class='table-content' id='biodiversity-pareto'>0</td>
+          </tr>
+          <tr>
+            <td>Carbon</td>
+            <td class='table-content' id='carbon-max'>0</td>
+            <td class='table-content' id='carbon-pareto'>0</td>
+          </tr>
+          <tr>
+            <td>Cancer cases</td>
+            <td class='table-content' id='cancer-cases-max'>0</td>
+            <td class='table-content' id='cancer-cases-pareto'>0</td>
+          </tr>
+        </table>
+      </div>
     </div>
 
 
@@ -41,6 +70,7 @@
       <div id='map'></div>
     </div>
 
+    <script src="src/nci-summary.js"></script>
     <script src="src/main.js"></script>
 
   </body>

@@ -1,9 +1,21 @@
-/* **** Leaflet **** */
 
 const countryCenters = {
   "Colombia": [4.671328914970367, -74.66408910910411],
   "Germany": [51.169129469814806, 10.589647427706087]
 }
+
+function updateSummaryTable(countryName) {
+  const objectives = ["crop-value", "biodiversity", "carbon", "cancer-cases"];
+  objectives.forEach(objName => {
+    max_key = `${objName}-max`;
+    pareto_key = `${objName}-pareto`;
+    document.getElementById(max_key)
+      .innerHTML = nciSummary[countryName][max_key];
+    document.getElementById(pareto_key)
+      .innerHTML = nciSummary[countryName][pareto_key];
+  });
+}
+
 
 function updateMap(countryName) {
   // Base layer
@@ -68,9 +80,11 @@ function handleCountrySelect() {
   document.getElementById("nci-frontier-plot")
     .innerHTML = `<img src='${countryName}/econ_vs_non_econ.png' id='frontier-img'/>`
   document.getElementById("nci-map").innerHTML = "<div id='map'></div>";
+  updateSummaryTable(countryName);
   updateMap(countryName);
   }
   
 
 
 updateMap("Colombia")
+updateSummaryTable("Colombia")
