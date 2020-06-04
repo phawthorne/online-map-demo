@@ -97,8 +97,11 @@ h4 {
 }
 
 .title {
-  font-size: 18pt;
-  font-weight: bold;
+	font-weight: 400;
+	font-size: 2em;
+	font-weight: 300;
+	color: black;
+	margin: 0.3em;
 }
 
 .src {
